@@ -192,10 +192,10 @@ export function getMaxMinInterval(maxValue, minValue, splitNumber) {
   // 计算刻度间隔
   // const interval = (max-min)/splitNumber
   let interval = max.minus(min).div(splitNumber).toNumber()
-  // 处理interval格式(避免刻度间隔长度过长)
+  // 处理interval格式(避免刻度间隔小数位长度过长)
   const { formatNumber: formatInterval, power: intervelPower } =
     formatNumInteger(interval)
-  interval = BigNumber(formatInterval).times(Math.pow(10, intervelPower))
+  interval = BigNumber(formatInterval).times(BigNumber(10).pow(intervelPower))
   // 如果最大刻度为0,那么根据格式化后的刻度间隔计算最小刻度
   if (max.comparedTo(0) === 0) {
     min = interval.times(-splitNumber)
